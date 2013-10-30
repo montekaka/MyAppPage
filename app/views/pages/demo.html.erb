@@ -1,1 +1,86 @@
-<h1>Demo</h1>
+<header id="home">
+	<div id="carousel-main" class="carousel slide">
+		<ol class="carousel-indicators">
+		</ol>
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner">                        
+		</div>
+		<!-- Wrapper for slides -->
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-lg-push-6">
+				</div>
+				<div class="col-lg-6 col-lg-pull-6">
+					<h5>&copy; Copywright 2013 -
+						<a href="http://bruinsquare.com/">Powered by BruinSquare</a>
+					</h5>
+				</div>
+			</div>
+		</div>
+	</footer>
+</header>
+				<script type="text/javascript">
+					function loadWeather(){
+						var forecastURL = "https://itunes.apple.com/lookup?id=688008299";
+						//36kr id 663117009
+						$.ajax({
+							url:forecastURL,
+							jsonpCallback: 'jsonCallback',
+							contentType: "application/json",
+							dataType: "jsonp",
+							success: function(json){
+								console.log(json);
+								console.log(json.results[0].description);
+								var screenshotUrls = json.results[0].screenshotUrls;
+								var appDesciption = json.results[0].description;
+								var trackName = json.results[0].trackName;
+								var trackViewUrl = json.results[0].trackViewUrl;
+								var appIcon = json.results[0].artworkUrl60;
+								var formattedPrice = json.results[0].formattedPrice
+								console.log(json.results[0].trackName);
+								console.log(json.results[0].trackViewUrl);
+								console.log(appIcon);
+								appDesciption.indexOf(".");
+								var listOfSlide = '';								
+								var N = screenshotUrls.length;
+								for (var i=0; i<N; i++){
+									if(i == 0){
+										listOfSlide = listOfSlide+'<li data-target="#carousel-main" data-slide-to="'+i+'" class="active"></li>'
+									}
+									else{
+										listOfSlide = listOfSlide+'<li data-target="#carousel-main" data-slide-to="'+i+'"></li>'
+									}
+								}
+								
+								$(".carousel-indicators").html(listOfSlide);								
+								var slides = '';
+								for (var j=0; j<N; j++){
+									if(j == 0){
+										slides = slides+'<div class="item active"><div class="container" style="padding:60px 0;"><img src="img/bg-1.jpg" class="bg" alt=""><div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left"><div class="iphone-5-container device-container"><img src="'+screenshotUrls[j]+'" alt=""></div></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 right"><div class="row text-center"><div class="col-lg-12"><h1 class="title">'+trackName+'</h1><p>'+appDesciption+'</p><div class="row text-center"><div class="col-lg-12"><a href="'+trackViewUrl+'" class="btn btn-1"><i class="icon-apple"></i>Buy Now</a></div></div></div></div></div></div></div>'
+									}
+									else{
+										slides = slides+'<div class="item"><div class="container" style="padding:60px 0;"><img src="img/bg-1.jpg" class="bg" alt=""><div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 left"><div class="iphone-5-container device-container"><img src="'+screenshotUrls[j]+'" alt=""></div></div><div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 right"><div class="row text-center"><div class="col-lg-12"><h1 class="title">'+trackName+'</h1><p>'+appDesciption+'</p><div class="row text-center"><div class="col-lg-12"><a href="'+trackViewUrl+'" class="btn btn-1"><i class="icon-apple"></i>Buy Now</a></div></div></div></div></div></div></div>'
+									}
+								}
+								
+								$("div.carousel-inner").html(slides);
+								document.title = trackName;
+								$('#iconShortcut').attr("href", appIcon);
+								$('#iconApple').attr("href", appIcon);
+								
+							},
+							error: function(e){
+								console.log(e.message);
+							}
+						})
+					}
+
+					$(document).ready(function(){
+						loadWeather();
+						//Bootstrap Carousel
+						$('#carousel-main').carousel();
+					});
+
+				</script>
