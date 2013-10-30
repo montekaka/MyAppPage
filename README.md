@@ -1,5 +1,5 @@
 # My App Page
 
-This is the application for turning iTunes app store page into iOS App landing page[*My App Page*](http://myapppage.heroku.com)
+[*My App Page*](http://myapppage.heroku.com) is turning iTunes app store page into an iOS App landing page
 
 by [BruinSquare](http://bruinsquare.com)
