@@ -3,5 +3,8 @@ class PagesController < ApplicationController
   end
   
   def demo
+  	@Circulus_layout = true
+  end
+  def app  	
   end
 end

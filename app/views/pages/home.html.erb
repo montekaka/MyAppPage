@@ -1,23 +1,123 @@
-<style>
-  body{
-    background-color: #34495e;
-  }
-</style>
-<section id="contact">
-	<div class="container">
-	    <div class="row">	        
-	        <div class="col-lg-12" style="text-align:center;margin-bottom:30px;">
-	        		<h2>Create an App Landing Page in Seconds</h2>
-	        		<br />
-	        		<div class="form-group">
-	        			<input type="text" class="form-control" name="name" id="name" placeholder="What is the name of your app?">
-	        		</div>	            
-	        </div>
-	        
-	        <div class="col-lg-12" style="text-align:center;">
-	        		<%= link_to "Next", demo_path, :class=>"btn btn-2", :style=>"margin:0 auto;" %>	            
-	        </div>
-	        
+<div class="container">
+    <div class="jumbotron">
+        <div class="col-lg-12" style="text-align:center;margin-bottom:30px;">
+        		<h1>Create an App Landing Page in Seconds</h1>
+        		<br />        	
+        		<input class="form-control input-lg search_save" type="text" placeholder="What the name of your app?", id="term">
+        </div>	        
+        <div class="col-lg-12" style="text-align:center;">
+        	<!--
+        		<%= link_to "Next", demo_path(@some_value), :class=>"btn btn-primary", :style=>"margin:0 auto;", :id=>'save_search' %>
+        	-->
+        	<%= link_to "Next", '#', :class=>"btn btn-lg btn-primary btn-block", :style=>"margin:0 auto; max-width: 350px", :id=>'save_search' %>
+        </div>     
+    </div>
+    <br />
+    <!--pins-->
+<!--     <div id="pins" class="transitions-enabled">
+	    <div class="box panel panel-default">
+	    	<a href="#"><img src='http://placehold.it/350x150'></a>
+	    	<div class="panel-body">
+	    		<p>Yelp</p>
+	    		<p><strong>Creator</strong></p>
+	    		<div class="actions">
+	    			 <a href="#">
+	    			 	<span class="glyphicon glyphicon-edit"></span> Create
+	    			 </a>
+	    			 <a href="#">
+	    			 	<span class="glyphicon glyphicon-edit"></span> Preview
+	    			 </a>
+	    		</div>    		
+	    	</div>
 	    </div>
-	</div>
-</section>
+  	</div> -->
+    <!--pins-->
+    <!--table-->
+    <div id = 'appTable'>
+<!-- 	    <table class="table table-hover">
+	    	<thead>
+	    		<tr>
+	    			<th>Artwork</th>
+	    			<th>App Name</th>
+	    			<th>Artist Name</th>
+	    			<th></th>
+	    			<th></th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<tr>
+	    			<td>
+	    				<a href="#"><img src='http://placehold.it/60x60'></a>
+	    			</td>
+	    			<td>
+	    				36kr
+	    			</td>
+	    			<td>
+	    				creator
+	    			</td>
+	    			<td>
+	    				<a href="#" class="btn btn-primary">Create</a>
+	    			</td>
+	    			<td>
+	    				<a href="#" class="btn btn-success">Privew</a>
+	    			</td>    			
+	    		</tr>
+	    	</tbody>
+	    </table> -->
+  	</div>
+    <!--table-->
+</div>
+
+<script>
+function loadiTunesApp(term){
+	var iTunesURL = 'https://itunes.apple.com/search?term='+term+'&entity=software';
+	$.ajax({
+		url:iTunesURL,
+		jsonpCallback: 'jsonCallback',
+		contentType: "application/json",
+		dataType: "jsonp",
+		success: function(json){
+			var searchResults = json.results;
+			console.log(searchResults);
+			var tableHead = '<thead><tr><th>Artwork</th><th>App Name</th><th>Artist Name</th><th></th><th></th></tr></thead>';
+			var pins='';
+			var pin;
+			var N = searchResults.length;			
+			for (var i=0; i<N; i++){
+				trackName = searchResults[i].trackName;
+				artworkUrl100 = searchResults[i].artworkUrl100;
+				artworkUrl60 = searchResults[i].artworkUrl60;
+				trackViewUrl = searchResults[i].trackViewUrl;
+				trackId = searchResults[i].trackId;
+				artistName = searchResults[i].artistName;
+
+				console.log(trackName); //trackName
+				console.log(artworkUrl100);//artworkUrl100
+				console.log(trackViewUrl);//trackViewUrl
+				console.log(trackId);//trackId
+				console.log(artistName);//artistName
+				/*
+				pin = '<div class="box panel panel-default">'+'<a href="'+trackViewUrl+'"><img src="'+artworkUrl100+'"></a><div class="panel-body"><p>'+trackName+'</p><p><strong>'+artistName+'</p></strong>'+'<div class="actions">'+'<a href="#" class="btn btn-primary">Create</a>'+' <a href="#" class="btn btn-success">Preview</a>'+'</div>'+'</div>'+'</div>';
+				*/
+				pin = '<tr><td><a href="'+trackViewUrl+'"><img src="'+artworkUrl60+'" height="60" width="60"></a></td><td>'+trackName+'</td><td>'+artistName+'</td>'+'<td><a href="#" class="btn btn-primary">Create</a></td>'+'<td><a href="#" class="btn btn-success">Privew</a></td>'+'</tr>';
+				//console.log(pin);
+				pins = pins + pin;
+			}
+			//$("div#pins").html(pins);
+			var tablePins = '<table class="table table-hover">'+tableHead + '<tbody>'+pins+'</tbody></table>';
+			$("div#appTable").html(tablePins);
+		},
+		error: function(e){
+			console.log(e.message);
+		}
+	})
+}
+$(document).ready(function(){
+	var term;
+	$('#save_search').click(function(){
+		term = $('#term').val();
+		console.log(term);
+		loadiTunesApp(term);
+	});
+});
+</script>

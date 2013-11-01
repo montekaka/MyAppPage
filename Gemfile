@@ -9,6 +9,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass', branch: '3'
 gem 'font-awesome-sass'
+gem 'twitter-typeahead-rails'
 
 group :development, :test do
 	gem 'sqlite3'
