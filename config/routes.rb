@@ -1,4 +1,6 @@
 MyAppPage::Application.routes.draw do
+  resources :apps
+
   devise_for :users
   #get "demos/home"
   #get "pages/home"

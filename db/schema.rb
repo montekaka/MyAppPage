@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131102214030) do
+ActiveRecord::Schema.define(version: 20131102232236) do
+
+  create_table "apps", force: true do |t|
+    t.integer  "trackId"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
