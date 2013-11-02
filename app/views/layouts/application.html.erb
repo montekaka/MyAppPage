@@ -21,7 +21,7 @@
 
 <body>
   <% flash.each do |name, msg|%>
-    <%= content_tag(:div, msg, class: 'alert alert-#{name}')%>
+    <%= content_tag(:div, msg, class: 'alert alert-info')%>
   <% end %>
   <% if request.env['PATH_INFO'].start_with?("/demo")%>
     <%= render 'demos/stylesheet'%>

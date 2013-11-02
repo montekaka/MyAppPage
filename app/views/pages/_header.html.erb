@@ -14,7 +14,12 @@
 		<!--navbar-header-->
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><%= link_to 'Sign Up', new_user_registration_path %></li>
+				<% if user_signed_in?%>
+					<li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+				<%else%>
+					<li><%= link_to 'Log in', new_user_session_path %></li>
+					<li><%= link_to 'Sign Up', new_user_registration_path %></li>
+				<% end %>
 				<li><%= link_to 'Demo', demo_path(:appID=>'663117009')%></li>
 			</ul>
 		</div>
