@@ -23,7 +23,14 @@
   <% flash.each do |name, msg|%>
     <%= content_tag(:div, msg, class: 'alert alert-#{name}')%>
   <% end %>
-<%= yield %>
-
+  <% if request.env['PATH_INFO'].start_with?("/demo")%>
+    <%= render 'demos/stylesheet'%>
+    <%= yield %>
+  <%else%>
+    <%= render 'pages/header'%>
+    <div class="container">
+      <%= yield %>
+    </div>
+  <%end%>  
 </body>
 </html>

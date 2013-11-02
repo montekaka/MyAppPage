@@ -1,73 +1,70 @@
-<%= render 'pages/header'%>
-<div class="container">
-    <div class="jumbotron">
-        <div class="col-lg-12" style="text-align:center;margin-bottom:30px;">
-        		<h1>Create an App Landing Page in Seconds</h1>
-        		<br />        	
-        		<input class="form-control input-lg search_save" type="text" placeholder="What the name of your app?", id="term">
-        </div>	        
-        <div class="col-lg-12" style="text-align:center;">
-        	<!--
-        		<%= link_to "Next", demo_path(@some_value), :class=>"btn btn-primary", :style=>"margin:0 auto;", :id=>'save_search' %>
-        	-->
-        	<%= link_to "Go", '#appTable', :class=>"btn btn-lg btn-primary btn-block", :style=>"margin:0 auto; max-width: 350px", :id=>'save_search' %>
-        </div>     
-    </div>
-    <br />
-    <!--pins-->
-<!--     <div id="pins" class="transitions-enabled">
-	    <div class="box panel panel-default">
-	    	<a href="#"><img src='http://placehold.it/350x150'></a>
-	    	<div class="panel-body">
-	    		<p>Yelp</p>
-	    		<p><strong>Creator</strong></p>
-	    		<div class="actions">
-	    			 <a href="#">
-	    			 	<span class="glyphicon glyphicon-edit"></span> Create
-	    			 </a>
-	    			 <a href="#">
-	    			 	<span class="glyphicon glyphicon-edit"></span> Preview
-	    			 </a>
-	    		</div>    		
-	    	</div>
-	    </div>
-  	</div> -->
-    <!--pins-->
-    <!--table-->
-    <div id = 'appTable'>
-<!-- 	    <table class="table table-hover">
-	    	<thead>
-	    		<tr>
-	    			<th>Artwork</th>
-	    			<th>App Name</th>
-	    			<th>Artist Name</th>
-	    			<th></th>
-	    			<th></th>
-	    		</tr>
-	    	</thead>
-	    	<tbody>
-	    		<tr>
-	    			<td>
-	    				<a href="#"><img src='http://placehold.it/60x60'></a>
-	    			</td>
-	    			<td>
-	    				36kr
-	    			</td>
-	    			<td>
-	    				creator
-	    			</td>
-	    			<td>
-	    				<a href="#" class="btn btn-primary">Create</a>
-	    			</td>
-	    			<td>
-	    				<a href="#" class="btn btn-success">Privew</a>
-	    			</td>    			
-	    		</tr>
-	    	</tbody>
-	    </table> -->
-  	</div>
-    <!--table-->
+<div class="jumbotron">
+    <div class="col-lg-12" style="text-align:center;margin-bottom:30px;">
+    		<h1>Create an App Landing Page in Seconds</h1>
+    		<br />        	
+    		<input class="form-control input-lg search_save" type="text" placeholder="What the name of your app?", id="term">
+    </div>	        
+    <div class="col-lg-12" style="text-align:center;">
+    	<!--
+    		<%= link_to "Next", demo_path(@some_value), :class=>"btn btn-primary", :style=>"margin:0 auto;", :id=>'save_search' %>
+    	-->
+    	<%= link_to "Go", '#appTable', :class=>"btn btn-lg btn-primary btn-block", :style=>"margin:0 auto; max-width: 350px", :id=>'save_search' %>
+    </div>     
 </div>
+<br />
+<!--pins-->
+<!--     <div id="pins" class="transitions-enabled">
+  <div class="box panel panel-default">
+  	<a href="#"><img src='http://placehold.it/350x150'></a>
+  	<div class="panel-body">
+  		<p>Yelp</p>
+  		<p><strong>Creator</strong></p>
+  		<div class="actions">
+  			 <a href="#">
+  			 	<span class="glyphicon glyphicon-edit"></span> Create
+  			 </a>
+  			 <a href="#">
+  			 	<span class="glyphicon glyphicon-edit"></span> Preview
+  			 </a>
+  		</div>    		
+  	</div>
+  </div>
+</div> -->
+<!--pins-->
+<!--table-->
+<div id = 'appTable'>
+<!-- 	    <table class="table table-hover">
+  	<thead>
+  		<tr>
+  			<th>Artwork</th>
+  			<th>App Name</th>
+  			<th>Artist Name</th>
+  			<th></th>
+  			<th></th>
+  		</tr>
+  	</thead>
+  	<tbody>
+  		<tr>
+  			<td>
+  				<a href="#"><img src='http://placehold.it/60x60'></a>
+  			</td>
+  			<td>
+  				36kr
+  			</td>
+  			<td>
+  				creator
+  			</td>
+  			<td>
+  				<a href="#" class="btn btn-primary">Create</a>
+  			</td>
+  			<td>
+  				<a href="#" class="btn btn-success">Privew</a>
+  			</td>    			
+  		</tr>
+  	</tbody>
+  </table> -->
+</div>
+<!--table-->
 
 <script>
 function loadiTunesApp(term){

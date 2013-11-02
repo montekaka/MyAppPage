@@ -1,4 +1,5 @@
 MyAppPage::Application.routes.draw do
+  devise_for :users
   #get "demos/home"
   #get "pages/home"
   root 'pages#home'
