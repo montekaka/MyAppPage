@@ -20,14 +20,14 @@
 </head>
 
 <body>
-  <% flash.each do |name, msg|%>
-    <%= content_tag(:div, msg, class: 'alert alert-info')%>
-  <% end %>
   <% if request.env['PATH_INFO'].start_with?("/demo")%>
     <%= render 'demos/stylesheet'%>
     <%= yield %>
   <%else%>
     <%= render 'pages/header'%>
+    <% flash.each do |name, msg|%>
+      <%= content_tag(:div, msg, class: 'alert alert-info')%>
+    <% end %>      
     <div class="container">
       <%= yield %>
     </div>
