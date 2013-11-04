@@ -15,7 +15,7 @@
       <tr>
         <% if app.user == current_user %>
           <td><%= app.trackId %></td>
-          <td><%= link_to 'Show', app %></td>        
+          <td><%= link_to 'Show', app, :target=>"_blank" %></td>        
           <!-- <td><%= link_to 'Edit', edit_app_path(app) %></td> -->
           <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
