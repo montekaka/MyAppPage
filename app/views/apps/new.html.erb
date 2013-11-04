@@ -1,8 +1,17 @@
-<h1>New app</h1>
-
+<div class="page-header">
+	<h1>New App</h1>
+</div>
+<div class="media">
+	<a class="pull-left" href="#">
+		<img class="media-object" id = 'appIcon' src="" alt="">
+	</a>
+	<div class="media-body">
+		<h4 class="media-heading" id ="appTitle"></h4>
+	</div>
+</div>
+<br />
 <%= render 'form' %>
-
-<%= link_to 'Back', apps_path %>
+<%= link_to 'Back', apps_path, :class=>"btn btn-success" %>
 
 <script type="text/javascript">
 	function getURLParameters(url)
@@ -29,7 +38,11 @@
 			dataType: "jsonp",
 			success: function(json){
 				console.log(json);
+				var trackName = json.results[0].trackName;
+				var appIcon = json.results[0].artworkUrl60;
 				$("input#app_trackId").val(appID);
+				$("#appTitle").html(trackName);
+				$("#appIcon").attr('src', appIcon);
 			},
 			error: function(e){
 				console.log(e.message);
