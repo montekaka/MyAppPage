@@ -39,10 +39,10 @@
 	    return result;
 	}
 	function loadAppfromStore(appID){
-		var forecastURL = "https://itunes.apple.com/lookup?id="+appID;
+		var appstoreURL = "https://itunes.apple.com/lookup?id="+appID;
 		//36kr - AM 8:15 id 663117009
 		$.ajax({
-			url:forecastURL,
+			url:appstoreURL,
 			jsonpCallback: 'jsonCallback',
 			contentType: "application/json",
 			dataType: "jsonp",

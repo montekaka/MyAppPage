@@ -13,9 +13,9 @@
   <tbody>
     <% @apps.each do |app| %>
       <tr>
-        <td><%= app.trackId %></td>
-        <td><%= link_to 'Show', app %></td>
         <% if app.user == current_user %>
+          <td><%= app.trackId %></td>
+          <td><%= link_to 'Show', app %></td>        
           <td><%= link_to 'Edit', edit_app_path(app) %></td>
           <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
@@ -26,5 +26,8 @@
 
 <br>
 <% if user_signed_in? %>
-  <%= link_to 'New App', new_app_path %>
+  <!--
+    <%= link_to 'New App', new_app_path %>
+  -->
+    <%= link_to 'New App', root_path %>
 <% end %>
