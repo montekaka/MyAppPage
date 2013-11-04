@@ -19,8 +19,8 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>  
 </head>
 
-<body>
-  <% if request.env['PATH_INFO'].start_with?("/demo")%>
+<body>  
+  <% if (controller.controller_name == "demos" && controller.action_name =="home") || (controller.controller_name == "apps" && controller.action_name =="show")%>
     <%= render 'demos/stylesheet'%>
     <%= yield %>
   <%else%>
