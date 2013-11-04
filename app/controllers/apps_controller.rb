@@ -1,5 +1,7 @@
 class AppsController < ApplicationController
   before_action :set_app, only: [:show, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   # GET /apps
   # GET /apps.json
@@ -14,7 +16,8 @@ class AppsController < ApplicationController
 
   # GET /apps/new
   def new
-    @app = App.new
+    #@app = App.new
+    @app = current_user.apps.build
   end
 
   # GET /apps/1/edit
@@ -24,8 +27,8 @@ class AppsController < ApplicationController
   # POST /apps
   # POST /apps.json
   def create
-    @app = App.new(app_params)
-
+    #@app = App.new(app_params)
+    @app = current_user.apps.build(app_params)
     respond_to do |format|
       if @app.save
         format.html { redirect_to @app, notice: 'App was successfully created.' }
@@ -55,6 +58,7 @@ class AppsController < ApplicationController
   # DELETE /apps/1.json
   def destroy
     @app.destroy
+    redirect_to apps_url
     respond_to do |format|
       format.html { redirect_to apps_url }
       format.json { head :no_content }
@@ -65,6 +69,11 @@ class AppsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_app
       @app = App.find(params[:id])
+    end
+    
+    def correct_user
+      @app = current_user.apps.find_by(id: params[:id])
+      redirect_to apps_path, notice: "Not authorized to edit this pin" if @app.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
