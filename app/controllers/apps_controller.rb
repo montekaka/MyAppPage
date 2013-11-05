@@ -74,6 +74,11 @@ class AppsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def app_params
+      # Roland: you need to add other parameters.
+      
+      params.require(:app).permit(:trackViewURL)
+      params.require(:app).permit(:trackName)
+      params.require(:app).permit(:icon)
       params.require(:app).permit(:trackId)
     end
 end
