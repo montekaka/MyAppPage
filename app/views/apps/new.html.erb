@@ -1,18 +1,23 @@
-<div class="page-header">
-	<h1>New App</h1>
-</div>
-<div class="media">
-	<a class="pull-left" href="#">
-		<img class="media-object" id = 'appIcon' src="" alt="" height="60" width="60">
-	</a>
-	<div class="media-body">
-		<h4 class="media-heading" id ="appTitle"></h4>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1>New App</h1>
+	</div>
+	<div class="panel-body">
+		<div class="media">
+			<a class="pull-left" href="#">
+				<img class="media-object" id = 'appIcon' src="" alt="" height="60" width="60">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading" id ="appTitle"></h4>
+			</div>
+		</div>
+		<br />		
+		<%= render 'form' %>
+	</div>
+	<div class="panel-footer">
+		<%= link_to 'Back', apps_path, :class=>"btn btn-success" %>
 	</div>
 </div>
-<br />
-<%= render 'form' %>
-<%= link_to 'Back', apps_path, :class=>"btn btn-success" %>
-
 <script type="text/javascript">
 	function getURLParameters(url)
 	{
@@ -39,9 +44,12 @@
 			success: function(json){
 				console.log(json);
 				var trackName = json.results[0].trackName;
+				var trackViewUrl = json.results[0].trackViewUrl;
 				var appIcon = json.results[0].artworkUrl60;
 				$("input#app_trackId").val(appID);
-				$("#appTitle").html(trackName);
+				$("input#app_trackName").val(trackName);
+				$("input#app_trackViewUrl").val(trackViewUrl);
+				$("input#app_icon").val(appIcon);
 				$("#appIcon").attr('src', appIcon);
 			},
 			error: function(e){

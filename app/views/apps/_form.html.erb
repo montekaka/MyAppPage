@@ -12,8 +12,20 @@
   <% end %>
 
   <div class="form-group">
+    <%= f.label :trackName %>
+    <%= f.text_field :trackName, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :trackId %>
     <%= f.text_field :trackId, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :icon, 'Icon URL'%>
+    <%= f.text_field :icon, class: "form-control" %>    
+  </div>
+  <div class="form-group">
+    <%= f.label :trackViewUrl, 'trackViewUrl'%>
+    <%= f.text_field :trackViewUrl, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.submit class: "btn btn-primary" %>

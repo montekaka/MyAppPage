@@ -6,7 +6,7 @@ class AppsController < ApplicationController
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.all
+    @apps = App.all.order("created_at DESC")
   end
 
   # GET /apps/1
@@ -59,10 +59,6 @@ class AppsController < ApplicationController
   def destroy
     @app.destroy
     redirect_to apps_url
-    respond_to do |format|
-      format.html { redirect_to apps_url }
-      format.json { head :no_content }
-    end
   end
 
   private
