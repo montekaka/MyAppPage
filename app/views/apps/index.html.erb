@@ -1,9 +1,12 @@
-<h1>Listing apps</h1>
+<div class="page-header">
+  <h1>Listing apps</h1>
+</div>
 
 <table>
   <thead>
     <tr>
-      <th>Trackid</th>
+      <th>Artwork</th>
+      <th>App Name</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,9 +17,10 @@
     <% @apps.each do |app| %>
       <tr>
         <% if app.user == current_user %>
-          <td><%= app.trackId %></td>
+          <td></td>
+          <td><%= app.trackName %></td>
           <td><%= link_to 'Show', app, :target=>"_blank" %></td>        
-          <!-- <td><%= link_to 'Edit', edit_app_path(app) %></td> -->
+          <td><%= link_to 'Refresh', edit_app_path(app) %></td>
           <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
