@@ -1,6 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h1>Refresh App</h1>
+		<h1>Update App</h1>
 	</div>
 	<div class="panel-body">
 		<div class="media">
@@ -15,8 +15,8 @@
 		<%= render 'form' %>
 	</div>
 	<div class="panel-footer">
-		<%= link_to 'Back', apps_path, :class=>"btn btn-primary" %>
-		<%= link_to 'Show', apps_path, :class=>"btn btn-success" %>
+		<%= link_to 'Cancel', apps_path, :class=>"btn btn-success" %>
+		<%= link_to 'Show', apps_path, :class=>"btn btn-primary" %>
 	</div>
 </div>
 <script type="text/javascript">
@@ -59,8 +59,8 @@
 		})
 	}
 	$(document).ready(function(){
-		var params = getURLParameters(window.location.href);
-		var appID = params.appID;
+		//var params = getURLParameters(window.location.href);
+		var appID = $("input#app_trackId").val();
 		console.log(appID);
 		loadAppfromStoreToForm(appID);
 	})
