@@ -1,6 +1,67 @@
-<h1>Editing app</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @app %> |
-<%= link_to 'Back', apps_path %>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h1>Refresh App</h1>
+	</div>
+	<div class="panel-body">
+		<div class="media">
+			<a class="pull-left" href="#">
+				<img class="media-object" id = 'appIcon' src="" alt="" height="60" width="60">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading" id ="appTitle"></h4>
+			</div>
+		</div>
+		<br />		
+		<%= render 'form' %>
+	</div>
+	<div class="panel-footer">
+		<%= link_to 'Back', apps_path, :class=>"btn btn-primary" %>
+		<%= link_to 'Show', apps_path, :class=>"btn btn-success" %>
+	</div>
+</div>
+<script type="text/javascript">
+	function getURLParameters(url)
+	{
+		
+	    var result = {};
+			var searchIndex = url.indexOf("?");
+			if (searchIndex == -1 ) return result;
+	    var sPageURL = url.substring(searchIndex +1);
+	    var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++)
+	    {    	
+	        var sParameterName = sURLVariables[i].split('=');      
+	        result[sParameterName[0]] = sParameterName[1];
+	    }
+	    return result;
+	}
+	function loadAppfromStoreToForm(appID){
+		var appstoreURL = "https://itunes.apple.com/lookup?id="+appID;
+		$.ajax({
+			url:appstoreURL,
+			jsonpCallback: 'jsonCallback',
+			contentType: "application/json",
+			dataType: "jsonp",
+			success: function(json){
+				console.log(json);
+				var trackName = json.results[0].trackName;
+				var trackViewUrl = json.results[0].trackViewUrl;
+				var appIcon = json.results[0].artworkUrl60;
+				$("input#app_trackId").val(appID);
+				$("input#app_trackName").val(trackName);
+				$("input#app_trackViewUrl").val(trackViewUrl);
+				$("input#app_icon").val(appIcon);
+				$("#appIcon").attr('src', appIcon);
+			},
+			error: function(e){
+				console.log(e.message);
+			}
+		})
+	}
+	$(document).ready(function(){
+		var params = getURLParameters(window.location.href);
+		var appID = params.appID;
+		console.log(appID);
+		loadAppfromStoreToForm(appID);
+	})
+</script>

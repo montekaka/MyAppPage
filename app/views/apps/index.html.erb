@@ -2,13 +2,11 @@
   <h1>Listing apps</h1>
 </div>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Artwork</th>
       <th>App Name</th>
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -17,15 +15,17 @@
     <% @apps.each do |app| %>
       <tr>
         <% if app.user == current_user %>
-          <td></td>
+          <td><%= link_to image_tag(app.icon), app.trackViewUrl %></td>
           <td><%= app.trackName %></td>
-          <td><%= link_to 'Show', app, :target=>"_blank" %></td>        
-          <td><%= link_to 'Refresh', edit_app_path(app) %></td>
-          <td><%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td>
+            <p>
+              <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>    
+              <%= link_to 'Refresh', edit_app_path(app), :class=>"btn btn-success" %>
+              <%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
+            </p>
+          </td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
