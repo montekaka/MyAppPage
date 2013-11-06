@@ -37,7 +37,7 @@
   <%end%>
   <script type="text/javascript">  
   console.log('<%= controller.controller_name %>'+'/'+'<%= controller.action_name %>');
-    mixpanel.track('<%= controller.controller_name %>'+'/'+'<%= controller.action_name %>'+' Loaded');
+    mixpanel.track('<%= controller.controller_name %>'+'/'+'<%= controller.action_name %>'+' Loaded', {"User Email": '<%= current_user.email %>'});
   </script>
 </body>
 </html>
