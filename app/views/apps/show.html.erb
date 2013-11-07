@@ -1,6 +1,6 @@
 <style>
 header {
-    background-image:url(https://s3-us-west-2.amazonaws.com/myapppage/assets/bg-3.jpg);
+    background-image:url(https://s3-us-west-2.amazonaws.com/myapppage/assets/bg-3blur.jpg);
     background-size:cover;
     animation: fadein 1s;
     -moz-animation: fadein 1s; 
@@ -8,6 +8,7 @@ header {
     -o-animation: fadein 1s;
 }
 </style>
+<div id="fb-root"></div>
 <header id="home">
 
 <!-- slide everything
@@ -47,10 +48,14 @@ header {
 	<div class="container">			
 		<div class="row">
 			<div class="col-lg-6 col-lg-push-6">
+				<ul>
+					<li>
+						<a href="#" target="_blank"  id="fbshare">Share on Facebook</a>
+					</li>
+				</ul>
 			</div>
 			<div class="col-lg-6 col-lg-pull-6">
-				<h5>&copy; Copywright 2013 -
-					<a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>
+				<h5 id="footerCreator">
 				</h5>
 			</div>
 		</div>
@@ -143,10 +148,19 @@ header {
 				var trackName = json.results[0].trackName;
 				var trackViewUrl = json.results[0].trackViewUrl;
 				var appIcon = json.results[0].artworkUrl60;
-				var formattedPrice = json.results[0].formattedPrice
+				var appIcon100 = json.results[0].artworkUrl100;
+				var formattedPrice = json.results[0].formattedPrice;
+				var artistName = json.results[0].artistName;
+				if(formattedPrice=="FREE"){
+					formattedPrice = "<span class='label label-Success'>"+"It's FREE!"+"</span>";
+				}
+				else{
+					formattedPrice = "<span class='label label-Success'> Only "+formattedPrice+"</span>";
+				}
 				console.log(json.results[0].trackName);
 				console.log(json.results[0].trackViewUrl);
 				console.log(appIcon);
+				console.log("artistName: "+artistName);
 				appDesciption.indexOf(".");
 				var listOfSlide = '';								
 				var N = screenshotUrls.length;
@@ -172,13 +186,14 @@ header {
 				
 				$("div.carousel-inner").html(slides);
 
-				var appDescriptionHTML = '<h1 class="title">'+trackName+'</h1>'+'<p>'+appDesciption+'</p>'+'<div class="row text-center"><div class="col-lg-12"><a href="'+trackViewUrl+'" >'+'<img src="https://s3-us-west-2.amazonaws.com/myapppage/assets/App_Store_Badge_US-UK_135x40.png"></a></div></div>';
+				var appDescriptionHTML = '<h1 class="title">'+'<img src="'+appIcon+'" alt =""/> '+trackName+'</h1>'+'<h2>'+formattedPrice+'</h2>'+'<p>'+appDesciption+'</p>'+'<div class="row text-center"><div class="col-lg-12"><a href="'+trackViewUrl+'" >'+'<img src="https://s3-us-west-2.amazonaws.com/myapppage/assets/App_Store_Badge_US-UK_135x40.png"></a></div></div>';
 
 				$("div#appDescription").html(appDescriptionHTML);
 
 				document.title = trackName;
 				$('#iconShortcut').attr("href", appIcon);
 				$('#iconApple').attr("href", appIcon);
+				$('#footerCreator').html('&copy; Copywright 2013 - '+artistName+', <a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>')
 				
 			},
 			error: function(e){
@@ -193,7 +208,11 @@ header {
 		//var appID = params.appID;
 		loadAppfromStore_fixed_Background_slide(<%= @app.trackId %>);
 		//Bootstrap Carousel
-		$('#carousel-main').carousel();		
+		$('#carousel-main').carousel();
+		var fbShare = $(location).attr('href');
+		fbShare = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(fbShare);
+		$('a#fbshare').attr('href', fbShare);
+		console.log(fbShare);
 	});
 
 </script>

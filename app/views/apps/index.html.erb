@@ -19,9 +19,11 @@
           <td><%= app.trackName %></td>
           <td>
             <p>
-              <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>    
-              <%= link_to 'Refresh', edit_app_path(app), :class=>"btn btn-success" %>
-              <%= link_to 'Destroy', app, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
+              <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>
+              <!--
+              <% link_to 'Refresh', edit_app_path(app), :class=>"btn btn-success" %>
+              -->
+              <%= link_to 'Delete', app, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
             </p>
           </td>
         <% end %>
