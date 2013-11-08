@@ -54,7 +54,7 @@ header {
 				</ul>
 			</div>
 			<div class="col-lg-6 col-lg-pull-6">
-				<h5>&copy; Copywright 2013 -
+				<h5 id="footerCreator">&copy; Copywright 2013 -
 					<a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>
 				</h5>
 			</div>
@@ -125,6 +125,8 @@ header {
 				document.title = trackName;
 				$('#iconShortcut').attr("href", appIcon);
 				$('#iconApple').attr("href", appIcon);
+				$('#footerCreator').html('&copy; Copywright 2013 - '+artistName+', <a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>');
+
 				
 			},
 			error: function(e){
@@ -205,7 +207,9 @@ header {
 				document.title = trackName;
 				$('#iconShortcut').attr("href", appIcon);
 				$('#iconApple').attr("href", appIcon);
-				$('#footerCreator').html('&copy; Copywright 2013 - '+artistName+', <a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>')
+				$('#footerCreator').html('&copy; Copywright 2013 - '+artistName+', <a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>');
+				mixpanel.track('Page Viewed',{'Page Name': 'Demo Page', "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>',
+					"APP Name": trackName, "APP ID": appID});
 				
 			},
 			error: function(e){
@@ -222,7 +226,7 @@ header {
 		//Bootstrap Carousel
 		$('#carousel-main').carousel();
 		var fbShare = $(location).attr('href');
-		fbShare = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(fbShare);
+		fbShare = 'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(fbShare);		
 	});
 
 </script>
