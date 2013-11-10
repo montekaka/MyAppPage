@@ -198,7 +198,7 @@ header {
 				
 				$("div.carousel-inner").html(slides);
 
-				var appDescriptionHTML = '<h1 class="title">'+'<img src="'+appIcon+'"height="64" width="64" alt =""/> '+trackName+'</h1>'+'<h2>'+formattedPrice+'</h2>'+'<p>'+appDesciption+'</p>'+'<div class="row text-center"><div class="col-lg-12"><a href="'+trackViewUrl+'" id="iTunesButton">'+'<img src="https://s3-us-west-2.amazonaws.com/myapppage/assets/App_Store_Badge_US-UK_135x40.png"></a></div></div>';
+				var appDescriptionHTML = '<h1 class="title">'+'<img src="'+appIcon+'"height="64" width="64" alt =""/> '+trackName+'</h1>'+'<h2>'+formattedPrice+'</h2>'+'<p>'+appDesciption+'</p>'+'<div class="row text-center"><div class="col-lg-12"><a href="'+trackViewUrl+'" id="iTunesLink">'+'<img src="https://s3-us-west-2.amazonaws.com/myapppage/assets/App_Store_Badge_US-UK_135x40.png"></a></div></div>';
 
 				$("div#appDescription").html(appDescriptionHTML);
 
@@ -214,6 +214,14 @@ header {
 					'App Name':trackName,
 					'User Email': '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>',
 					'App Owner Email':'<%= @app.user.email %>'});
+
+				mixpanel.track_links('#iTunesLink', 'Click Apps iTunes', {
+					"App Name": trackName,
+					"trackID" : appID,
+					'Landing Page ID':'<%= @app.id %>',
+					'User Email': '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>',
+					'App Owner Email':'<%= @app.user.email %>'
+				});
 			},
 			error: function(e){
 				console.log(e.message);
