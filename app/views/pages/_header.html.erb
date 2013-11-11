@@ -18,10 +18,10 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-left">
 				<% if user_signed_in?%>
-				<li><a href="mailto:josh.jia.chen@gmail.com">Support</a></li>
+				<li><a href="mailto:josh.jia.chen@gmail.com">Feedback</a></li>
 				<% else %>
 				<li>
-					<a href="mailto:josh.jia.chen@gmail.com">Support <span class="glyphicon glyphicon-envelope"></span></a>
+					<a href="mailto:josh.jia.chen@gmail.com">Feedback <span class="glyphicon glyphicon-envelope"></span></a>
 				</li>
 				<li>
 					<%= link_to demo_path(:appID=>'471966214'), :target=>"_blank" do %>
@@ -34,7 +34,7 @@
 				<% if user_signed_in?%>
 					<li>
 						<%= link_to apps_path do %>
-							<span class="glyphicon glyphicon-home"></span> Feedback
+							<span class="glyphicon glyphicon-home"></span> Home
 						<% end %>
 					</li>
 					<li>
