@@ -16,9 +16,27 @@
 		</div>
 		<!--navbar-header-->
 		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-left">
+				<% if user_signed_in?%>
+				<li><a href="mailto:josh.jia.chen@gmail.com">Support</a></li>
+				<% else %>
+				<li>
+					<a href="mailto:josh.jia.chen@gmail.com">Support <span class="glyphicon glyphicon-envelope"></span></a>
+				</li>
+				<li>
+					<%= link_to demo_path(:appID=>'471966214'), :target=>"_blank" do %>
+						Demo <span class="glyphicon glyphicon-new-window"></span>
+					<% end %>
+				</li>
+				<%end%>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<% if user_signed_in?%>
-					<li><%= link_to 'Home', apps_path %></li>
+					<li>
+						<%= link_to apps_path do %>
+							<span class="glyphicon glyphicon-home"></span> Home
+						<% end %>
+					</li>
 					<li>
 						<%= link_to root_path do %>
 							<span class="glyphicon glyphicon-plus"></span> New App
@@ -28,8 +46,7 @@
 					<li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>					
 				<%else%>
 					<li><%= link_to 'Log in', new_user_session_path %></li>
-					<li><%= link_to 'Sign Up', new_user_registration_path %></li>
-					<li><%= link_to 'Demo', demo_path(:appID=>'471966214'), :target=>"_blank"%></li>
+					<li><%= link_to 'Sign Up', new_user_registration_path %></li>					
 				<% end %>
 			</ul>
 		</div>
