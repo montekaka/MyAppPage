@@ -7,6 +7,7 @@
     <tr>
       <th>Artwork</th>
       <th>App Name</th>
+      <th>Page View</th>
       <th></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
         <% if app.user == current_user %>
           <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
           <td><%= app.trackName %></td>
+          <td>1</td>
           <td>
             <p>
               <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>
@@ -28,6 +30,7 @@
         <% else %>
           <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
           <td><%= app.trackName %></td>
+          <td><%= app.get_live_page_count %></td>
           <td>
             <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>
           </td>          

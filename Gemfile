@@ -11,6 +11,7 @@ gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass', branch: '3'
 gem 'font-awesome-sass'
 gem 'twitter-typeahead-rails'
 gem 'devise', '~> 3.1.0.rc2'
+gem 'mixpanel_client'
 
 group :development, :test do
 	gem 'sqlite3'
