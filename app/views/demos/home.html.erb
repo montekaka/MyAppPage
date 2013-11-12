@@ -209,8 +209,12 @@ header {
 				$('#iconApple').attr("href", appIcon);
 				$('#footerCreator').html('&copy; Copywright 2013 - '+artistName+', <a href="http://myapppage.heroku.com/">Powered by MyApp Page</a>');
 
-				mixpanel.track('Page Viewed',{'Page Name': 'Demo Page', "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>',
-					"APP Name": trackName, "APP ID": appID});
+				mixpanel.track('Demo Page Viewed',
+					{
+						"User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>',
+						"App Name": trackName, 
+						"App ID": appID
+					});
 				
 				mixpanel.track_links('#iTunesLink', "Click Demo iTunes", {
 					"App Name": trackName,

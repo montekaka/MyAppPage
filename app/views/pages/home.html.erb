@@ -119,8 +119,8 @@ $(document).ready(function(){
     mixpanel.track("Search Button clicked",{"App Search Term":term, "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>'});
 	});
 
-  mixpanel.track('Page Viewed', {'Page Name': 'Home Page',
-  "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>' }); 
+  mixpanel.track('Home Page Viewed', 
+    { "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>' }); 
 });
 
 </script>

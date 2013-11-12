@@ -18,7 +18,9 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-left">
 				<% if user_signed_in?%>
-				<li><a href="mailto:josh.jia.chen@gmail.com">Feedback</a></li>
+					<li>
+					<a href="mailto:josh.jia.chen@gmail.com">Feedback <span class="glyphicon glyphicon-envelope"></span></a>
+					</li>
 				<% else %>
 				<li>
 					<a href="mailto:josh.jia.chen@gmail.com">Feedback <span class="glyphicon glyphicon-envelope"></span></a>
@@ -42,11 +44,27 @@
 							<span class="glyphicon glyphicon-plus"></span> New App
 						<% end %>
 					</li>
-					<li><%= link_to 'Account Settings', edit_user_registration_path %></li>
-					<li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>					
+					<li>
+						<%= link_to edit_user_registration_path do %>
+							<span class="glyphicon glyphicon-user"></span> Account Setting
+						<% end %>
+					</li>
+					<li>
+						<%= link_to destroy_user_session_path, method: :delete  do%>
+							<span class="glyphicon glyphicon-off"></span> Log out
+						<% end %>
+					</li>					
 				<%else%>
-					<li><%= link_to 'Log in', new_user_session_path %></li>
-					<li><%= link_to 'Sign Up', new_user_registration_path %></li>					
+					<li>
+						<%= link_to new_user_session_path do %>
+							<span class="glyphicon glyphicon-off"></span> Log in
+						<% end %>
+					</li>
+					<li>
+						<%= link_to new_user_registration_path do %>
+							<span class="glyphicon glyphicon-user"></span> Sign Up
+						<% end %>
+					</li>					
 				<% end %>
 			</ul>
 		</div>
