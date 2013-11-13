@@ -1,0 +1,21 @@
+<%= form_for(@pagecount) do |f| %>
+  <% if @pagecount.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pagecount.errors.count, "error") %> prohibited this pagecount from being saved:</h2>
+
+      <ul>
+      <% @pagecount.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :pageview %><br>
+    <%= f.number_field :pageview %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

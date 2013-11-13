@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131105070021) do
+ActiveRecord::Schema.define(version: 20131113065703) do
 
   create_table "apps", force: true do |t|
     t.integer  "trackId"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20131105070021) do
   end
 
   add_index "apps", ["user_id"], name: "index_apps_on_user_id"
+
+  create_table "pagecounts", force: true do |t|
+    t.integer  "pageview"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "app_id"
+  end
+
+  add_index "pagecounts", ["app_id"], name: "index_pagecounts_on_app_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

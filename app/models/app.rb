@@ -1,5 +1,6 @@
 class App < ActiveRecord::Base
 	belongs_to :user
+	has_many :pagecounts
 
 	def get_live_page_count
 		# get page_count from mixpanel

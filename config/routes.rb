@@ -1,4 +1,6 @@
 MyAppPage::Application.routes.draw do
+  resources :pagecounts
+
   resources :apps
 
   devise_for :users

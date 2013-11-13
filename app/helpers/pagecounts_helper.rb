@@ -1,0 +1,2 @@
+module PagecountsHelper
+end

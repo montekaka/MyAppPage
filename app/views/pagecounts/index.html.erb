@@ -1,0 +1,27 @@
+<h1>Listing pagecounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pageview</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pagecounts.each do |pagecount| %>
+      <tr>
+        <td><%= pagecount.pageview %></td>
+        <td><%= link_to 'Show', pagecount %></td>
+        <td><%= link_to 'Edit', edit_pagecount_path(pagecount) %></td>
+        <td><%= link_to 'Destroy', pagecount, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pagecount', new_pagecount_path %>
