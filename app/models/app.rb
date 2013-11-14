@@ -3,6 +3,7 @@ class App < ActiveRecord::Base
 	has_many :pagecounts
 
 	def get_live_page_count
+		
 		# get page_count from mixpanel
 		config = {
 			api_key: 'dc026b4b9413dcce8e3ac0374ef906e5', 
