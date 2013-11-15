@@ -33,10 +33,11 @@ def get_live_page_count(appsIDs, eventName)
 		end
 		results[id] = {"date"=>current_date,"clicks"=>value}
 	end
+	
 	return results
 end
 
-fuck = get_live_page_count(["13","14","15","16"], 'Click Apps iTunes')
+fuck = get_live_page_count(["13","14","15","16"], 'App LandingPage Viewed')
 puts fuck
 fuck.each do |f,v|
 	puts v["clicks"]

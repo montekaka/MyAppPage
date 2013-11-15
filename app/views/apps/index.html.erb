@@ -18,8 +18,8 @@
         <% if app.user == current_user %>
           <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
           <td><%= app.trackName %></td>
-          <td><%= app.get_live_page_count %></td>
-          <td><%= app.get_itunes_button_click_count %></td>
+          <td></td>
+          <td></td>
           <td>
             <p>
               <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>

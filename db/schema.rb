@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113065703) do
+ActiveRecord::Schema.define(version: 20131115055930) do
 
   create_table "apps", force: true do |t|
     t.integer  "trackId"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20131113065703) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "app_id"
+    t.date     "mixpanel_data"
   end
 
   add_index "pagecounts", ["app_id"], name: "index_pagecounts_on_app_id"
