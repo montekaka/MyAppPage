@@ -1,10 +1,13 @@
 class PagecountsController < ApplicationController
-  before_action :set_pagecount, only: [:show, :edit, :update, :destroy]
+  before_action :set_pagecount, only: [:index]
 
   # GET /pagecounts
   # GET /pagecounts.json
   def index
-    @pagecounts = Pagecount.all
+    current_app = App.find_by_id(params[:id])
+    @pagecounts = current_app.pagecounts.order("mixpanel_data DESC")
+
+    #@pagecounts = Pagecount.find_by_app_id(@app)
   end
 
   # GET /pagecounts/1
@@ -66,7 +69,6 @@ class PagecountsController < ApplicationController
     def set_pagecount
       @pagecount = Pagecount.find(params[:id])
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def pagecount_params
       params.require(:pagecount).permit(:pageview)

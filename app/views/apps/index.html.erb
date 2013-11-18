@@ -17,12 +17,12 @@
       <tr>
         <% if app.user == current_user %>
           <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
-          <td><%= app.trackName %></td>
-          <td></td>
-          <td></td>
+          <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
+          <td><%= app.get_page_count %></td>
+          <td><%= app.get_itunes_button_click_count %></td>
           <td>
             <p>
-              <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>
+              <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
               <!--
               <% link_to 'Refresh', edit_app_path(app), :class=>"btn btn-success" %>
               -->
@@ -31,11 +31,11 @@
           </td>
         <% else %>
           <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
-          <td><%= app.trackName %></td>
+          <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
           <td><%= app.get_page_count %></td>
           <td><%= app.get_itunes_button_click_count %></td>
           <td>
-            <%= link_to 'Show', app, :target=>"_blank", :class=>"btn btn-primary" %>
+            <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
           </td>          
         <% end %>
       </tr>
