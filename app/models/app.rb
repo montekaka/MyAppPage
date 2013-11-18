@@ -2,6 +2,16 @@ class App < ActiveRecord::Base
 	belongs_to :user
 	has_many :pagecounts
 
+	def get_page_count
+		stats = pagecounts.sum(:pageview)
+		return stats
+	end
+
+	def get_itunes_button_click_count
+		stats = pagecounts.sum(:itunes_clicks)
+		return stats
+	end
+
 	def get_live_page_count
 		
 		# get page_count from mixpanel
@@ -42,7 +52,7 @@ class App < ActiveRecord::Base
 		end
 	end
 
-	def get_itunes_button_click_count
+	def get_live_itunes_button_click_count
 		# get page_count from mixpanel
 		config = {
 			api_key: 'dc026b4b9413dcce8e3ac0374ef906e5', 
