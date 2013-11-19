@@ -18,7 +18,13 @@
   </thead>
 
   <tbody>
-    <% @pagecounts.each do |pagecount| %>
+    <tr>
+      <% mixpanel_live_data = @pagecounts.get_mixpanel_data([App.find_by_id(params[:id]).id.to_s])[App.find_by_id(params[:id]).id.to_s] %>
+      <td><%= mixpanel_live_data['date'] %></td>
+      <td><%= mixpanel_live_data['pageView'] %></td>
+      <td><%= mixpanel_live_data['itunesClick'] %></td>
+    </tr>
+    <% @pagecounts.each do |pagecount| %>      
       <tr>
         <td><%= pagecount.mixpanel_data %></td>
         <td><%= pagecount.pageview %></td>

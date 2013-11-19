@@ -14,6 +14,8 @@ task :mixpanel_data_export => :environment do
 		puts "AppID: " + f + " "+ v["date"] +" Page View: "+v["pageView"].to_s + " iTunes Clicks " + v["itunesClick"].to_s
 		app = App.find_by_id(f.to_i)
 		puts app.trackName
-		app.pagecounts.create(:mixpanel_data=>v['date'], :pageview=>v["pageView"], :itunes_clicks=>v['itunesClick'])
+		if(v["pageView"]+v['itunesClick'] > 0)
+			app.pagecounts.create(:mixpanel_data=>v['date'], :pageview=>v["pageView"], :itunes_clicks=>v['itunesClick'])
+		end
 	end	
 end
