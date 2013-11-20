@@ -4,43 +4,60 @@
 <div class="col-lg-12">
   <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Page View</th>
-      <th>iTunes Click</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr>
-      <% mixpanel_live_data = @pagecounts.get_mixpanel_data([App.find_by_id(params[:id]).id.to_s])[App.find_by_id(params[:id]).id.to_s] %>
-      <td><%= mixpanel_live_data['date'] %></td>
-      <td><%= mixpanel_live_data['pageView'] %></td>
-      <td><%= mixpanel_live_data['itunesClick'] %></td>
-    </tr>
-    <% @pagecounts.each do |pagecount| %>      
+<br />
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
       <tr>
-        <td><%= pagecount.mixpanel_data %></td>
-        <td><%= pagecount.pageview %></td>
-        <td><%= pagecount.itunes_clicks %></td>
-        <td><%= link_to 'Show', pagecount %></td>
-        <td><%= link_to 'Edit', edit_pagecount_path(pagecount) %></td>
-        <td><%= link_to 'Destroy', pagecount, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Date</th>
+        <th>Page View</th>
+        <th>iTunes Click</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <tr>
+        <% @mixpanel_live_data = @pagecounts.get_mixpanel_data([App.find_by_id(params[:id]).id.to_s])[App.find_by_id(params[:id]).id.to_s] %>
+        <td><%= @mixpanel_live_data['date'] %></td>
+        <td><%= @mixpanel_live_data['pageView'] %></td>
+        <td><%= @mixpanel_live_data['itunesClick'] %></td>
+      </tr>
+      <% @pagecounts.each do |pagecount| %>      
+        <tr>
+          <td><%= pagecount.mixpanel_data %></td>
+          <td><%= pagecount.pageview %></td>
+          <td><%= pagecount.itunes_clicks %></td>
+          <!--
+          <td><% link_to 'Show', pagecount %></td>
+          <td><% link_to 'Edit', edit_pagecount_path(pagecount) %></td>
+          <td><% link_to 'Destroy', pagecount, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          -->
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <br>
 
 <%= link_to 'New Pagecount', new_pagecount_path %>
 <script>
+function dateBetween(start, end){
+  var currentDate = new Date(start);
+  var between = [];
+  while (currentDate <= end) {
+      addingDate = new Date(currentDate);
+      if(addingDate.getDate()<9){
+        between.push(addingDate.getFullYear()+'-'+(addingDate.getMonth()+1)+'-0'+(addingDate.getDate()+1));
+      }
+      else{
+        between.push(addingDate.getFullYear()+'-'+(addingDate.getMonth()+1)+'-'+(addingDate.getDate()+1));
+      }    
+      currentDate.setDate(currentDate.getDate() + 1);
+  }  
+  return between;
+}
+
+console.log("<%= @mixpanel_live_data['date'] %>");
 var mixpanel_data = [];
 var pageview = [];
 var itunes_clicks = [];
@@ -55,7 +72,46 @@ mixpanel_data = mixpanel_data.reverse();
 pageview = pageview.reverse();
 itunes_clicks = itunes_clicks.reverse();
 
-console.log(pageview);
+mixpanel_data.push("<%= @mixpanel_live_data['date'] %>");
+pageview.push(<%= @mixpanel_live_data['pageView'] %>);
+itunes_clicks.push(<%= @mixpanel_live_data['itunesClick'] %>);
+
+if(mixpanel_data.length>1){
+  var start = new Date(mixpanel_data[0]);
+  var end = new Date(mixpanel_data[mixpanel_data.length-1]);
+  var between = dateBetween(start, end);
+  var final_date_array = between;
+  console.log(final_date_array);
+  var final_pageview_array = [];
+  var final_itunes_clicks_array = [];
+  console.log(between)
+  for(var i=0; i<final_date_array.length; i++){
+    j = mixpanel_data.indexOf(between[i]);
+    if(pageview[j]===undefined){
+      final_pageview = 0;
+    }
+    else{
+      final_pageview = pageview[j];
+    }
+    if(itunes_clicks[j]===undefined){
+      final_itunes_clicks = 0;
+    }
+
+    else{
+      final_itunes_clicks = itunes_clicks[j];
+    }    
+
+    final_pageview_array.push(final_pageview);
+    final_itunes_clicks_array.push(final_itunes_clicks);    
+  }
+
+}
+else{
+  var final_date_array = mixpanel_data;
+  var final_pageview_array = pageview;
+  var final_itunes_clicks_array = itunes_clicks;
+}
+console.log(final_pageview_array);
 
 $(function () {
         $('#container').highcharts({
@@ -69,7 +125,7 @@ $(function () {
                 text: 'Source: Mixpanel.com'
             },
             xAxis: {
-                categories: mixpanel_data
+                categories: final_date_array
             },
             yAxis: {
                 min: 0,
@@ -93,11 +149,11 @@ $(function () {
             },
             series: [{
                 name: 'Page View',
-                data: pageview
+                data: final_pageview_array
     
             }, {
                 name: 'iTunes Clciks',
-                data: itunes_clicks
+                data: final_itunes_clicks_array
     
             }]
         });
