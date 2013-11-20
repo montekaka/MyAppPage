@@ -1,11 +1,13 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-<h1><%= App.find_by_id(params[:id]).trackName %></h1>
+<div class="page-header col-lg-12">
+  <h1><%= App.find_by_id(params[:id]).trackName %> <small>stats</small></h1>
+</div>
 <div class="col-lg-12">
   <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
 </div>
 <br />
-<div class="table-responsive">
+<div class="table-responsive col-lg-12">
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -38,8 +40,9 @@
   </table>
 </div>
 <br>
-
+<!--
 <%= link_to 'New Pagecount', new_pagecount_path %>
+-->
 <script>
 function dateBetween(start, end){
   var currentDate = new Date(start);
