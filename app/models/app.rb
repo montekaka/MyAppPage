@@ -12,81 +12,52 @@ class App < ActiveRecord::Base
 		return stats
 	end
 
-	def get_live_page_count
-		
-		# get page_count from mixpanel
+	def self.get_mixpanel_date(appsIDs)
 		config = {
 			api_key: 'dc026b4b9413dcce8e3ac0374ef906e5', 
 			api_secret: 'd144302ca4443c49420569d07d1c9e15'
 		}
 
-		client = Mixpanel::Client.new(config)
-
-		data = client.request('events/properties', {
-		  event:     'App LandingPage Viewed',  
+		client = Mixpanel::Client.new(config)		
+		
+		pageViewdata = client.request('events/properties', {
+		  event:     'App LandingPage Viewed',
 		  name:      'Landing Page ID',
-		  values:     [self.id.to_s],
+		  values:     appsIDs,
 		  type:      'unique',
 		  unit:      'day',
 		  interval:   1,
 		})
 
-		puts "************ Mixpanel loaded!!!! ****************"
-		puts data.inspect
-		result = 0
-		if data["legend_size"] == 0
-			return 0
-		elsif data["data"]["series"].length == 1						
-			data["data"]["values"].each do |key, value|
-				value.each do |k, v|
-					return v
-				end
-			end
-		else
-			data["data"]["values"].each do |key, value|				
-				value.each do |k, v|
-					result = result + v
-				end
-			end
-			return result
-		end
-	end
-
-	def get_live_itunes_button_click_count
-		# get page_count from mixpanel
-		config = {
-			api_key: 'dc026b4b9413dcce8e3ac0374ef906e5', 
-			api_secret: 'd144302ca4443c49420569d07d1c9e15'
-		}
-
-		client = Mixpanel::Client.new(config)
-		
-		data = client.request('events/properties', {
-		  event:     'Click Apps iTunes',  
+		itunesClicks = client.request('events/properties', {
+		  event:     'Click Apps iTunes',
 		  name:      'Landing Page ID',
-		  values:     [self.id.to_s],
+		  values:     appsIDs,
 		  type:      'unique',
 		  unit:      'day',
 		  interval:   1,
 		})
-		
-		puts "************ Mixpanel loaded button Click!!!! ****************"
-		result = 0
-		if data["legend_size"] == 0
-			return 0
-		elsif data["data"]["series"].length == 1						
-			data["data"]["values"].each do |key, value|
-				value.each do |k, v|
-					return v
-				end
+
+		current_date = pageViewdata["data"]["series"][0]
+		values = pageViewdata["data"]["values"]
+		iTunesClick_values = itunesClicks["data"]["values"]
+
+		results = Hash.new
+		appsIDs.each do |id|
+			if values[id].nil?
+				value = 0
+			else
+				value = values[id][current_date]
 			end
-		else
-			data["data"]["values"].each do |key, value|				
-				value.each do |k, v|
-					result = result + v
-				end
+			if iTunesClick_values[id].nil?
+				iTunes_Click = 0
+			else
+				iTunes_Click = iTunesClick_values[id][current_date]
 			end
-			return result
+
+			results[id] = {"date"=>current_date,"pageView"=>value, "itunesClick"=>iTunes_Click}
 		end
+		
+		return results
 	end
 end

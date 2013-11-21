@@ -1,49 +1,47 @@
-<div class="page-header">
-  <h1>Listing apps</h1>
-</div>
-
-<table class="table table-hover table-responsive">
-  <thead>
-    <tr>
-      <th>Artwork</th>
-      <th>App Name</th>
-      <th>Views</th>
-      <th>Convert to App Store</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @apps.each do |app| %>    
+<% @liveData = @apps.get_mixpanel_date(["1","2"]) %>
+<div class="table-responsive col-lg-12">
+  <table class="table table-bordered table-responsive ">
+    <thead>
       <tr>
-        <% if app.user == current_user %>
-          <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
-          <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
-          <td><%= app.get_page_count %></td>
-          <td><%= app.get_itunes_button_click_count %></td>
-          <td>
-            <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
-              <p>
-                <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
-                <%= link_to 'Delete', app, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
-              </p>
-            <% end %>
-          </td>
-        <% else %>
-          <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
-          <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
-          <td><%= app.get_page_count %></td>
-          <td><%= app.get_itunes_button_click_count %></td>
-          <td>
-            <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
-              <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
-            <% end %>
-          </td>          
-        <% end %>
+        <th>Artwork</th>
+        <th>App Name</th>
+        <th>Views</th>
+        <th>Convert to App Store</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<p>Note: All the stat are based on unique count.</p>
+    </thead>
+    <tbody>
+      <% @apps.each do |app| %>    
+        <tr>
+          <% if app.user == current_user %>
+            <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
+            <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
+            <td><%= app.get_page_count + @liveData[app.id.to_s]['pageView'] %></td>
+            <td><%= app.get_itunes_button_click_count + @liveData[app.id.to_s]['itunesClick'] %></td>
+            <td>
+              <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
+                <p>
+                  <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
+                  <%= link_to 'Delete', app, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
+                </p>
+              <% end %>
+            </td>
+          <% else %>
+            <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
+            <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
+            <td><%= app.get_page_count + @liveData[app.id.to_s]['pageView'] %></td>
+            <td><%= app.get_itunes_button_click_count + @liveData[app.id.to_s]['itunesClick'] %></td>
+            <td>
+              <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
+                <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
+              <% end %>
+            </td>          
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <script>
 $(document).ready(function(){
   mixpanel.track('Admin Page Viewed',{
