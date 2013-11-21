@@ -13,6 +13,7 @@ class App < ActiveRecord::Base
 	end
 
 	def self.get_mixpanel_date(appsIDs)
+		
 		config = {
 			api_key: 'dc026b4b9413dcce8e3ac0374ef906e5', 
 			api_secret: 'd144302ca4443c49420569d07d1c9e15'
