@@ -4,8 +4,7 @@ class PagecountsController < ApplicationController
   # GET /pagecounts
   # GET /pagecounts.json
   def index
-    current_app = App.find_by_id(params[:id])
-    @pagecounts = current_app.pagecounts.order("mixpanel_data DESC")
+    @pagecounts = @app.pagecounts.order("mixpanel_data DESC")
 
     #@pagecounts = Pagecount.find_by_app_id(@app)
   end
@@ -67,7 +66,7 @@ class PagecountsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pagecount  
-      @pagecount = Pagecount.find_by_id(params[:id])
+      @app = App.find(params[:app_id])
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def pagecount_params

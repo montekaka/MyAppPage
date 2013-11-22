@@ -23,7 +23,7 @@
             <td>
               <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
                 <p>
-                  <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
+                  <%= link_to 'Stats', app_pagecounts_path(app.id) ,  :class=>"btn btn-primary" %>
                   <%= link_to 'Delete', app, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-danger" %>
                 </p>
               <% end %>
@@ -35,7 +35,7 @@
             <td><%= app.get_itunes_button_click_count + @liveData[app.id.to_s]['itunesClick'] %></td>
             <td>
               <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
-                <%= link_to 'Stats', {:controller=>"pagecounts", :action=>"index", :id=>app.id} ,  :class=>"btn btn-primary" %>
+                <%= link_to 'Stats', app_pagecounts_path(app.id),  :class=>"btn btn-primary" %>
               <% end %>
             </td>          
           <% end %>

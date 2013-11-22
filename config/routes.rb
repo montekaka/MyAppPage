@@ -1,7 +1,8 @@
 MyAppPage::Application.routes.draw do
-  resources :pagecounts
 
-  resources :apps
+  resources :apps do
+      resources :pagecounts
+  end
 
   devise_for :users
   #get "demos/home"

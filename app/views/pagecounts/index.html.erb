@@ -1,7 +1,7 @@
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <div class="page-header col-lg-12">
-  <h1><%= App.find_by_id(params[:id]).trackName %> <small>stats</small></h1>
+  <h1><%= @app.trackName %> <small>stats</small></h1>
 </div>
 <div class="col-lg-12">
   <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
@@ -19,7 +19,7 @@
 
     <tbody>
       <tr>
-        <% @mixpanel_live_data = @pagecounts.get_mixpanel_data([App.find_by_id(params[:id]).id.to_s])[App.find_by_id(params[:id]).id.to_s] %>
+        <% @mixpanel_live_data = @pagecounts.get_mixpanel_data([@app.id.to_s])[@app.id.to_s] %>
         <td><%= @mixpanel_live_data['date'] %></td>
         <td><%= @mixpanel_live_data['pageView'] %></td>
         <td><%= @mixpanel_live_data['itunesClick'] %></td>
@@ -40,9 +40,7 @@
   </table>
 </div>
 <br>
-<!--
-<%= link_to 'New Pagecount', new_pagecount_path %>
--->
+
 <script>
 function dateBetween(start, end){
   var currentDate = new Date(start);
@@ -121,7 +119,7 @@ $(function () {
                 type: 'column'
             },
             title: {
-                text: '<%=App.find_by_id(params[:id]).trackName %>'
+                text: '<%=@app.trackName %>'
             },
             subtitle: {
                 text: 'Source: Mixpanel.com'
