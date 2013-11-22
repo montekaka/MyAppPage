@@ -64,7 +64,7 @@ class AppsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_app
-      @app = App.find(params[:id])
+      @app = App.find_by_id(params[:id])
     end
     
     def correct_user
