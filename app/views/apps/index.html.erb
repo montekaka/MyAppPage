@@ -13,13 +13,12 @@
       <% @appsIDs = [] %> 
       <% @apps.each do |app| %>
         <% @appsIDs.push(app.id.to_s) %> 
-        <% @liveData = @apps.get_mixpanel_date(@appsIDs) %>
         <tr>
           <% if app.user == current_user %>
             <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
             <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
-            <td><%= app.get_page_count + @liveData[app.id.to_s]['pageView'] %></td>
-            <td><%= app.get_itunes_button_click_count + @liveData[app.id.to_s]['itunesClick'] %></td>
+            <td><%= app.get_page_count  %></td>
+            <td><%= app.get_itunes_button_click_count %></td>
             <td>
               <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
                 <p>
@@ -31,9 +30,9 @@
           <% else %>
             <td><%= link_to image_tag(app.icon, :height=>"64", :width=>"64" ), app.trackViewUrl%></td>
             <td><%= link_to app.trackName, app, :target=>"_blank" %></td>
-            <td><%= app.get_page_count + @liveData[app.id.to_s]['pageView'] %></td>
-            <td><%= app.get_itunes_button_click_count + @liveData[app.id.to_s]['itunesClick'] %></td>
-            <td>
+            <td><%= app.get_page_count %></td>
+            <td><%= app.get_itunes_button_click_count %></td>            
+            <td>              
               <% if (app.get_page_count+app.get_itunes_button_click_count)>0 %>
                 <%= link_to 'Stats', app_pagecounts_path(app.id),  :class=>"btn btn-primary" %>
               <% end %>
