@@ -119,6 +119,19 @@ $(document).ready(function(){
     mixpanel.track("Search Button clicked",{"App Search Term":term, "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>'});
 	});
 
+  $(document).keypress(function(e){
+    if(e.which == 13){
+      term = $('#term').val();
+      if(term.length>0){
+        console.log(term);
+        loadiTunesApp(term);
+        mixpanel.track("Search Button clicked",{"App Search Term":term, "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>'});
+      }
+      else{
+        console.log('What the name of your app again?');
+      }
+    }
+  });
   mixpanel.track('Home Page Viewed', 
     { "User Email": '<% if current_user.nil?%><%else %><%= current_user.email %><%end%>' }); 
 });
